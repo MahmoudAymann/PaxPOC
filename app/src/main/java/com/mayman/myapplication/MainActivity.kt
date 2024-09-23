@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun print() {
+    private fun print() {
         format.putString("fontStyle", PrinterFonts.path + PrinterFonts.FONT_AGENCYB)
         //create your constructor
         printermanager = PrinterManagervf(this, format)

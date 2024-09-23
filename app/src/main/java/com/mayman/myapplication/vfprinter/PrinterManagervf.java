@@ -83,30 +83,21 @@ public class PrinterManagervf  {
             if (deviceHelper.getPrinter() == null) {
                 return;
             }
-            format.putInt(ConstIPrinter.addQrCode.format.KEY_Offset_int, 0);
+            format.putInt(ConstIPrinter.addQrCode.format.KEY_Offset_int, 100);
             format.putInt("width", 384);
             format.putInt(ConstIPrinter.addBarCode.format.KEY_Height_int, 134);
             deviceHelper.getPrinter().addText(format,"Hello World");
-//                   PosServiceVf.getPrintManager().addImage(getPrintImage(0,100,192,R.mipmap.ic_launcher));
+            deviceHelper.getPrinter().addText(format,"Hello World");
+            deviceHelper.getPrinter().addText(format,"Hello World");
+            deviceHelper.getPrinter().addText(format,"Hello World");
+            PosServiceVf.getPrintManager().addImage(getPrintImage(0,100,192,
+                    R.drawable.ic_launcher_background));
 ///*            format.putInt(ConstIPrinter.addQrCode.format.KEY_Offset_int, 0);
 //            format.putInt("width", 384);
 //            format.putInt(ConstIPrinter.addBarCode.format.KEY_Height_int, 134);
 //            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.bareed);
 //            deviceHelper.getPrinter().addBmpImage(format,bitmap);*/
-////           switch (Integer.parseInt(DownloadParams.Params.getPRINTRECEIPTCOUNT()))
-////           {
-////               case 1:
-////                   PosServiceVf.getPrintManager().addImage(getPrintImage(0,100,192,R.drawable.bareed2));
-////                   break;
-////               case 2:
-////                   PosServiceVf.getPrintManager().addImage(getPrintImage(0,100,192,R.drawable.abelgo));
-////                   break;
-////               case 3:
-////                   PosServiceVf.getPrintManager().addImage(getPrintImage(0,75,192,R.drawable.echannels));
-////                   break;
-////               default:
-////                   break;
-////           }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
