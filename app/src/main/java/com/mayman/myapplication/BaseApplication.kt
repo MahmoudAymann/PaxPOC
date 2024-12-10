@@ -35,7 +35,7 @@ class BaseApplication : Application() {
             Toast.makeText(applicationContext, "Device Ready", Toast.LENGTH_SHORT).show()
             return true
         } else
-            Toast.makeText(applicationContext, "Device Not Ready", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "Device Not Ready to print", Toast.LENGTH_SHORT).show()
         return false
     } //Binding Services
 

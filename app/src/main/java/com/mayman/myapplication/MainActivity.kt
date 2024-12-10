@@ -1,17 +1,26 @@
 package com.mayman.myapplication
 
+import android.content.BroadcastReceiver
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.mayman.myapplication.databinding.ActivityMainBinding
 import com.mayman.myapplication.vfprinter.PosServiceVf
 import com.mayman.myapplication.vfprinter.PrinterFonts
 import com.mayman.myapplication.vfprinter.PrinterManagervf
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,8 +29,22 @@ class MainActivity : AppCompatActivity() {
 
 
     val format: Bundle = Bundle()
-    var printermanager: PrinterManagervf? = null
+    private var printermanager: PrinterManagervf? = null
 
+    private val paymentLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val paymentSuccess = result.data?.getBooleanExtra("paymentSuccess", false) ?: false
+            if (paymentSuccess) {
+                // Payment was successful
+                Toast.makeText(this, "Payment Successful", Toast.LENGTH_SHORT).show()
+            } else {
+                // Payment failed
+                Toast.makeText(this, "Payment Failed", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,13 +54,19 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
-
         binding.fab.setOnClickListener { view ->
-            print()
+            payment()
+//            print()
         }
+
+
+    }
+
+    private fun payment() {
+
+        val intent = Intent("com.example.PAYMENT_PROCESS")
+        intent.putExtra("amount", "0011") // Pass the amount
+        paymentLauncher.launch(intent)
     }
 
     private fun print() {
